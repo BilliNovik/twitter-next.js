@@ -13,12 +13,12 @@ type Props = {
 
 const Sidebar = (props: Props) => {
     return (
-        <div className='sm-flex flex flex-col p-2 xl:items-start h-full fixed'> 
+        <div className='sm-flex flex flex-col p-2 xl:items-start h-full fixed xl:mr-[370px]'>
             <div className='hoverEffect flex items-center justify-center hover:bg-blue-100 xl:justify-start '>
                 <Image src={logo} width="25" height="25" />
             </div>
             <div className='pb-2 mb-2.5'>
-                <SidebarMenuItem text="Home" icon={HomeIcon} active/>
+                <SidebarMenuItem text="Home" icon={HomeIcon} active />
                 <SidebarMenuItem text="Explore" icon={HashtagIcon} />
                 <SidebarMenuItem text="Notifications" icon={BellIcon} />
                 <SidebarMenuItem text="Message" icon={InboxIcon} />
