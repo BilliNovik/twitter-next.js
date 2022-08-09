@@ -15,7 +15,7 @@ const Input = (props: Props) => {
             <div className="w-full divide-y divide-gray-200">
                 <div className="">
                     <textarea className='w-full border-none focus:ring-0 text-lg placeholder-gray-700 tracking-wide 
-                    text-gray-700' rows="2" placeholder="What's happening?"></textarea>
+                    text-gray-700 resize-none' rows={2} placeholder="What's happening?"></textarea>
                 </div>
                 <div className="flex items-center justify-between pt-2.5">
                     <div className="flex">
