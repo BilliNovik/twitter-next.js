@@ -9,8 +9,6 @@ const Widgets = ({ articles, users }: any) => {
     const [aricleNumber, setArticleNumber] = React.useState(3)
     const [userNumber, setUserNumber] = React.useState(5)
 
-
-    console.log(articles, users)
     return (
         <div className="xl:w-[600px] hidden lg:inline ml-8 space-y-3">
             <div className="w-[90%] xl:w-[75%] sticky top-0 bg-white py-1.5 z-50">

@@ -8,4 +8,7 @@ export default NextAuth({
             clientSecret: process.env.REACT_APP_GOOGLE_CLIENT_SECRET,
         }),
     ],
+    pages: {
+        signIn: "/auth/signin"
+    }
 })
