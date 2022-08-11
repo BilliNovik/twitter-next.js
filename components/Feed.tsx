@@ -1,25 +1,25 @@
 import { SparklesIcon } from '@heroicons/react/outline'
 import React from 'react'
+import { IPost } from '../global/types'
+import { collection, onSnapshot, orderBy, query } from 'firebase/firestore'
+import { db } from '../firebase'
 
 import Input from './Input'
 import Post from './Post'
-import { IPost } from '../global/types'
 
 type Props = {}
 
 const Feed = (props: Props) => {
 
-  const posts: IPost[] = [
-    {
-      id: '1',
-      name: 'Cook Cooker',
-      username: 'cookcooker',
-      userImg: 'http://tricky-photoshop.com/wp-content/uploads/2017/08/final-1.png',
-      img: 'https://images.unsplash.com/photo-1592689891352-f185cc4b9179?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80',
-      text: 'he was arrested',
-      timestamp: '2 hours ago',
-    }
-  ]
+  const [posts, setPosts] = React.useState()
+
+  React.useEffect(() => {
+    // const q = query(citiesRef, orderBy("name", "desc"), limit(3));
+    onSnapshot(query(collection(db, "posts"), orderBy('date', 'desc')), (doc) => {
+      setPosts(doc.docs)
+    });
+
+  }, [])
 
   return (
     <div className='ml-[70px] border-l border-r border-gray-200 xl:min-w-[576px] xl:ml-[240px] flex-grow max-w-xl'>
@@ -31,7 +31,7 @@ const Feed = (props: Props) => {
       </div>
       <Input />
       {
-        posts.map(post => (
+        posts?.map(post => (
           <Post key={post.id} post={post} />
         ))
       }

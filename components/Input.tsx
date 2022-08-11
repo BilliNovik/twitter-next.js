@@ -26,7 +26,7 @@ const Input = (props: Props) => {
             userImg: session.user.image,
             name: session.user.name,
             username: session.user.username,
-            timestap: serverTimestamp()
+            date: new Date().getTime()
         })
 
         const imageRef = ref(storage, `posts/${docRef.id}/image`);
