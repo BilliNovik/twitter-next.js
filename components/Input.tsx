@@ -56,6 +56,11 @@ const Input = (props: Props) => {
         }
     }
 
+    const cleanImage = () => {
+        setSelectedFile('')
+        filePickerRef.current.value = ''
+    }
+
     return (
         <>
             {session &&
@@ -72,7 +77,7 @@ const Input = (props: Props) => {
                         </div>
                         {selectedFile && (
                             <div className='pt-2 pb-1'>
-                                <XIcon onClick={() => setSelectedFile(null)} className="h-6 p-1 m-2 bg-gray-400 text-blue-100 absolute cursor-pointer rounded-full" />
+                                <XIcon onClick={cleanImage} className="h-6 p-1 m-2 bg-gray-400 text-blue-100 absolute cursor-pointer rounded-full" />
                                 <img src={selectedFile} className={`${loading && "animate-pulse"}`} />
                             </div>
                         )}

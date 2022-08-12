@@ -8,19 +8,19 @@ import Widgets from "../components/Widgets";
 
 const Home: NextPage = ({ dataArticles, dataUsers }: any) => {
   return (
-    <div>
+    <>
       <Head>
         <title>Home / Twitter Next.js</title>
         <meta name="description" content="BilliNovik / twitter-next.js" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className='flex min-h-screen max-w-7x1 mx-auto'>
+      <main className='max-w-[1264px] flex min-h-screen mx-auto'>
         <Sidebar />
         <Feed />
         <Widgets articles={dataArticles.articles} users={dataUsers.results} />
       </main>
-    </div>
+    </>
   )
 }
 

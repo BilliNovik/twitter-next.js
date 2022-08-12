@@ -22,7 +22,7 @@ const Feed = (props: Props) => {
   }, [])
 
   return (
-    <div className='ml-[70px] border-l border-r border-gray-200 xl:min-w-[576px] xl:ml-[240px] flex-grow max-w-xl'>
+    <div className='ml-[70px] flex flex-col border-l border-r border-gray-200 max-w-[650px] md:min-w-[650px] xl:ml-[245px]'>
       <div className='py-2 px-3 sticky top-0 z-50 bg-white border-b flex justify-between border-gray-200 items-center'>
         <h2 className='text-lg sm:text-xl font-bold cursor-pointer'>Home</h2>
         <div className="hoverEffect flex justify-center items-center w-[40px] h-[40px] px-0">

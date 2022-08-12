@@ -9,27 +9,26 @@ type Props = {
 }
 
 const Post = ({ post }: Props) => {
-    console.log(post.data())
 
     post = post.data()
 
     return (
         <div className="flex p-3 cursor-pointer border-b border-gray-200">
             <img className="h-11 w-11 rounded-full mr-4" src={post.userImg} alt="user-img" />
-            <div className="">
+            <div className="w-full">
                 <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-1 whitespace-nowrap">
-                        <h4 className="font-bold text-[15px] sm:text-[16px] hover:underline">
+                        <h4 className="font-bold text-[14px] sm:text-[15px] hover:underline">
                             {post.name}
                         </h4>
-                        <span className="text-sm sm:text-[15px]">@{post.username} - </span>
-                        <span className="text-sm sm:text-[15px] hover:underline">
+                        <span className="text-sm sm:text-[14px]">@{post.username} - </span>
+                        <span className="text-sm sm:text-[14px] hover:underline">
                             {dateFormat(post.date, "mmmm dS")}
                         </span>
                     </div>
                     <DotsHorizontalIcon className="h-10 hoverEffect w-10 hover:bg-sky-100 hover:text-sky-500 p-2" />
                 </div>
-                <p className="text-gray-800 text-[15px sm:text-[16px] mb-2">
+                <p className="text-gray-800 text-[15px] sm:text-[16px] mb-2">
                     {post.text}
                 </p>
                 <img className="rounded-2xl mr-2" src={post.image} alt="" />
