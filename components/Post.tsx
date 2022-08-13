@@ -5,9 +5,11 @@ import dateFormat from 'dateformat'
 import { collection, deleteDoc, doc, onSnapshot, setDoc } from 'firebase/firestore';
 import { db, storage } from '../firebase';
 import { signIn, useSession } from 'next-auth/react';
+import { useRecoilState } from 'recoil';
 
 import { IPost } from '../global/types'
 import { deleteObject, ref } from 'firebase/storage';
+import { modalState } from '../atom/modalAtom'
 
 type Props = {
     post: IPost,
@@ -21,6 +23,8 @@ const Post = ({ post }: Props) => {
 
     const [likes, setLikes] = React.useState([])
     const [hasLiked, setHasLiked] = React.useState(false)
+
+    const [openDeleteModal, setOpenDeleteModal] = useRecoilState(modalState)
 
     React.useEffect(() => {
         onSnapshot(collection(db, "posts", getId, 'likes'), (doc) => {
@@ -46,11 +50,13 @@ const Post = ({ post }: Props) => {
     }
 
     const deletePost = async () => {
-        await deleteDoc(doc(db, `posts`, getId))
+        setOpenDeleteModal(true)
+        // await deleteDoc(doc(db, `posts`, getId))
 
-        if (getPost.image) {
-            deleteObject(ref(storage, `posts/${getId}/image`))
-        }
+        // if (getPost.image) {
+        //     deleteObject(ref(storage, `posts/${getId}/image`))
+        // }
+
     }
 
     return (

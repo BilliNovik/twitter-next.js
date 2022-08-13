@@ -4,7 +4,8 @@ import Head from 'next/head'
 
 import Feed from '../components/Feed'
 import Sidebar from '../components/Sidebar'
-import Widgets from "../components/Widgets";
+import Widgets from "../components/Widgets"
+import DeleteModal from '../components/DeleteModal'
 
 const Home: NextPage = ({ dataArticles, dataUsers }: any) => {
   return (
@@ -19,6 +20,9 @@ const Home: NextPage = ({ dataArticles, dataUsers }: any) => {
         <Sidebar />
         <Feed />
         <Widgets articles={dataArticles.articles} users={dataUsers.results} />
+
+        {/* MODAL */}
+        <DeleteModal />
       </main>
     </>
   )
