@@ -2,9 +2,9 @@ import { SparklesIcon } from '@heroicons/react/outline'
 import React from 'react'
 import { IPost } from '../global/types'
 import { collection, onSnapshot, orderBy, query } from 'firebase/firestore'
-import { db } from '../firebase'
 import { AnimatePresence, motion } from "framer-motion";
 
+import { db } from '../firebase'
 import Input from './Input'
 import Post from './Post'
 

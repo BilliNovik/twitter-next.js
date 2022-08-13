@@ -12,7 +12,7 @@ export const modalCommentState = atom({
 
 export const globalIDState = atom({
     key: 'globalIDState',
-    default: '',
+    default: 'id',
 });
 
 export const globalPostState = atom({
