@@ -3,10 +3,11 @@ import { ChartBarIcon, ChatIcon, DotsHorizontalIcon, HeartIcon, ShareIcon, Trash
 import { HeartIcon as HeartIconSolid } from "@heroicons/react/solid";
 import dateFormat from 'dateformat'
 import { collection, deleteDoc, doc, onSnapshot, setDoc } from 'firebase/firestore';
-import { db } from '../firebase';
+import { db, storage } from '../firebase';
 import { signIn, useSession } from 'next-auth/react';
 
 import { IPost } from '../global/types'
+import { deleteObject, ref } from 'firebase/storage';
 
 type Props = {
     post: IPost,
@@ -44,6 +45,14 @@ const Post = ({ post }: Props) => {
         }
     }
 
+    const deletePost = async () => {
+        await deleteDoc(doc(db, `posts`, getId))
+
+        if (getPost.image) {
+            deleteObject(ref(storage, `posts/${getId}/image`))
+        }
+    }
+
     return (
         <div className="flex p-3 cursor-pointer border-b border-gray-200">
             <img className="h-11 w-11 rounded-full mr-4" src={getPost.userImg} alt="user-img" />
@@ -66,7 +75,10 @@ const Post = ({ post }: Props) => {
                 <img className="rounded-2xl mr-2" src={getPost.image} alt="" />
                 <div className="flex justify-between text-gray-500 p-2">
                     <ChatIcon className="h-9 w-9 hoverEffect p-2 hover:text-sky-500 hover:bg-sky-100" />
-                    <TrashIcon className="h-9 w-9 hoverEffect p-2 hover:text-red-600 hover:bg-red-100" />
+                    {
+                        session?.user.uid === getPost.id &&
+                        <TrashIcon className="h-9 w-9 hoverEffect p-2 hover:text-red-600 hover:bg-red-100" onClick={deletePost} />
+                    }
                     <div className='flex items-center'>
                         {
                             hasLiked ?
