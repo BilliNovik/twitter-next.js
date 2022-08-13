@@ -14,7 +14,6 @@ const Feed = (props: Props) => {
   const [posts, setPosts] = React.useState()
 
   React.useEffect(() => {
-    // const q = query(citiesRef, orderBy("name", "desc"), limit(3));
     onSnapshot(query(collection(db, "posts"), orderBy('date', 'desc')), (doc) => {
       setPosts(doc.docs)
     });
