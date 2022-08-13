@@ -22,6 +22,7 @@ const Post = ({ post }: Props) => {
     const getId = post.id
 
     const [likes, setLikes] = React.useState([])
+    const [comments, setComments] = React.useState([])
     const [hasLiked, setHasLiked] = React.useState(false)
 
     const [openDeleteModal, setOpenDeleteModal] = useRecoilState(modalDeleteState)
@@ -30,9 +31,13 @@ const Post = ({ post }: Props) => {
     const [openCommentModal, setOpenCommentModal] = useRecoilState(modalCommentState)
 
     React.useEffect(() => {
-        onSnapshot(collection(db, "posts", getId, 'likes'), (doc) => {
+        onSnapshot(collection(db, 'posts', getId, 'likes'), (doc) => {
             setLikes(doc.docs)
-        });
+        })
+
+        onSnapshot(collection(db, 'posts', getId, 'comments'), (doc) => {
+            setComments(doc.docs)
+        })
     }, [db])
 
     React.useEffect(() => {
@@ -86,7 +91,13 @@ const Post = ({ post }: Props) => {
                 </p>
                 <img className="rounded-2xl mr-2" src={getPost.image} alt="" />
                 <div className="flex justify-between text-gray-500 p-2">
-                    <ChatIcon className="h-9 w-9 hoverEffect p-2 hover:text-sky-500 hover:bg-sky-100" onClick={commentPost} />
+                    <div className='flex items-center'>
+                        <ChatIcon className="h-9 w-9 hoverEffect p-2 hover:text-sky-500 hover:bg-sky-100" onClick={commentPost} />
+                        {
+                            comments.length > 0 &&
+                            <span className='text-sm select-none ml-1'>{comments.length}</span>
+                        }
+                    </div>
                     {
                         session?.user.uid === getPost.id &&
                         <TrashIcon className="h-9 w-9 hoverEffect p-2 hover:text-red-600 hover:bg-red-100" onClick={deletePost} />

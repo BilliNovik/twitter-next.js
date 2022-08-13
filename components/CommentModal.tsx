@@ -1,9 +1,10 @@
-import { doc, onSnapshot } from 'firebase/firestore'
+import { addDoc, collection, doc, onSnapshot } from 'firebase/firestore'
 import React from 'react'
 import { useRecoilState } from 'recoil'
 import dateFormat from 'dateformat'
 import { EmojiHappyIcon, PhotographIcon } from '@heroicons/react/outline'
 import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/router'
 
 import { db } from '../firebase'
 import { globalIDState, globalPostState, modalCommentState } from '../atom/modalAtom'
@@ -19,7 +20,7 @@ const CommentModal = (props: Props) => {
     const [inputValue, setInputValue]: any = React.useState('')
 
     const { data: session } = useSession()
-    console.log(session)
+    const router = useRouter()
 
     React.useEffect(() => {
         onSnapshot(doc(db, "posts", getId,), (doc) => {
@@ -27,8 +28,23 @@ const CommentModal = (props: Props) => {
         });
     }, [getId, db])
 
-    const onCloseModal = async () => {
+    const sendComment = async () => {
+        await addDoc(collection(db, 'posts', getId, 'comments'), {
+            id: session.user.uid,
+            comment: inputValue,
+            userImg: session.user.image,
+            name: session.user.name,
+            username: session.user.username,
+            date: new Date().getTime()
+        })
+
+        onCloseModal()
+        router.push(`/posts/${getId}`);
+    }
+
+    const onCloseModal = () => {
         setIsOpenModal(false)
+        setInputValue('')
         document.body.style.overflow = 'auto'
     }
 
@@ -60,7 +76,7 @@ const CommentModal = (props: Props) => {
                     <EmojiHappyIcon className="h-10 w-10 hoverEffect p-2 text-sky-500 hover:bg-sky-100" />
                 </div>
                 <button className="bg-blue-400 text-white px-4 py-1.5 rounded-full font-bold shadow-md hover:brightness-95
-                    disabled:opacity-50"  disabled={!inputValue.trim()}> Reply</button>
+                    disabled:opacity-50" onClick={sendComment} disabled={!inputValue.trim()}> Reply</button>
             </div>
         </Modal>
     )
