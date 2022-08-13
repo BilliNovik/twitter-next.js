@@ -9,7 +9,7 @@ import { useRecoilState } from 'recoil';
 
 import { IPost } from '../global/types'
 import { deleteObject, ref } from 'firebase/storage';
-import { modalState, deleteIdState, deletePostState } from '../atom/modalAtom'
+import { modalDeleteState, globalIDState, globalPostState, modalCommentState } from '../atom/modalAtom'
 
 type Props = {
     post: IPost,
@@ -24,9 +24,10 @@ const Post = ({ post }: Props) => {
     const [likes, setLikes] = React.useState([])
     const [hasLiked, setHasLiked] = React.useState(false)
 
-    const [openDeleteModal, setOpenDeleteModal] = useRecoilState(modalState)
-    const [, setDeleteIdState] = useRecoilState(deleteIdState)
-    const [, setDeletePostState] = useRecoilState(deletePostState)
+    const [openDeleteModal, setOpenDeleteModal] = useRecoilState(modalDeleteState)
+    const setGlobalIDState = useRecoilState(globalIDState)[1]
+    const setGlobalPostState = useRecoilState(globalPostState)[1]
+    const [openCommentModal, setOpenCommentModal] = useRecoilState(modalCommentState)
 
     React.useEffect(() => {
         onSnapshot(collection(db, "posts", getId, 'likes'), (doc) => {
@@ -43,7 +44,6 @@ const Post = ({ post }: Props) => {
 
         if (hasLiked) {
             await deleteDoc(doc(db, `posts`, getId, 'likes', session.user.uid))
-
         } else {
             await setDoc(doc(db, `posts`, getId, 'likes', session.user.uid), {
                 username: session.user.username
@@ -53,8 +53,16 @@ const Post = ({ post }: Props) => {
 
     const deletePost = () => {
         setOpenDeleteModal(true)
-        setDeleteIdState(getId)
-        setDeletePostState(getPost)
+        setGlobalIDState(getId)
+        setGlobalPostState(getPost)
+    }
+
+    const commentPost = () => {
+        if (!session) return signIn()
+
+        setOpenCommentModal(true)
+        setGlobalIDState(getId)
+        setGlobalPostState(getPost)
     }
 
     return (
@@ -78,7 +86,7 @@ const Post = ({ post }: Props) => {
                 </p>
                 <img className="rounded-2xl mr-2" src={getPost.image} alt="" />
                 <div className="flex justify-between text-gray-500 p-2">
-                    <ChatIcon className="h-9 w-9 hoverEffect p-2 hover:text-sky-500 hover:bg-sky-100" />
+                    <ChatIcon className="h-9 w-9 hoverEffect p-2 hover:text-sky-500 hover:bg-sky-100" onClick={commentPost} />
                     {
                         session?.user.uid === getPost.id &&
                         <TrashIcon className="h-9 w-9 hoverEffect p-2 hover:text-red-600 hover:bg-red-100" onClick={deletePost} />

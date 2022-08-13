@@ -3,7 +3,7 @@ import Modal from 'react-modal'
 
 Modal.setAppElement('.modal')
 
-const ModalReact = ({ children, isOpenModal, setIsOpenModal, maxWidthParam }) => {
+const ModalReact = ({ children, isOpenModal, maxWidthParam, onCloseModal }) => {
 
     const afterOpenModal = () => {
         document.body.style.overflow = 'hidden'
@@ -11,14 +11,9 @@ const ModalReact = ({ children, isOpenModal, setIsOpenModal, maxWidthParam }) =>
         document.querySelector('.ReactModal__Overlay').style.zIndex = '999'
     }
 
-    const onRequestClose = () => {
-        document.body.style.overflow = 'auto'
-        setIsOpenModal(false)
-    }
-
     return (
         <div className='modal'>
-            <Modal isOpen={isOpenModal} onRequestClose={onRequestClose} onAfterOpen={afterOpenModal} style={{ content: { maxWidth: maxWidthParam } }}
+            <Modal isOpen={isOpenModal} onRequestClose={onCloseModal} onAfterOpen={afterOpenModal} style={{ content: { maxWidth: maxWidthParam } }}
                 className={`outline-none ml-2 mr-2 w-[100%] absolute top-[20%] left-[50%] translate-x-[-50%] bg-white rounded-xl p-8`}>
                 {children}
             </Modal>
