@@ -1,4 +1,4 @@
-# CRUD Twitter Clone | [Demo](https://twitter-next-js-billinovik.vercel.app/)
+## CRUD Twitter Clone | [Demo](https://twitter-next-js-billinovik.vercel.app/)
 
 ### [WARN]
 I wanted to do this project on **TS**, but I realized it would take a very long time to substitute types. So let's pretend this project is on **JS**. Thanks
