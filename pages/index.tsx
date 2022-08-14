@@ -21,7 +21,7 @@ const Home: NextPage = ({ dataArticles, dataUsers }: any) => {
       <main className='max-w-[1264px] flex min-h-screen mx-auto'>
         <Sidebar />
         <Feed />
-        {/* <Widgets articles={dataArticles.articles} users={dataUsers.results} /> */}
+        <Widgets articles={dataArticles.articles} users={dataUsers} />
 
         <DeleteModal />
         <CommentModal />
@@ -32,12 +32,12 @@ const Home: NextPage = ({ dataArticles, dataUsers }: any) => {
 
 export async function getServerSideProps() {
   const dataArticles: any = await axios.get(`https://newsapi.org/v2/everything?q=zcash&pageSize=20&apiKey=${process.env.REACT_APP_NEWS_API_KEY}`)
-  // const dataUsers: any = await axios.get("https://randomuser.me/api/?results=30&inc=name,login,picture")
+  const dataUsers: any = await axios.get("https://62d937e65d893b27b2e0cf08.mockapi.io/lucci-pizza/users")
 
   return {
     props: {
       dataArticles: dataArticles.data,
-      // dataUsers: dataUsers.data
+      dataUsers: dataUsers.data
     }
   }
 }

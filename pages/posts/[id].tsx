@@ -29,7 +29,7 @@ const PostPage = ({ dataArticles, dataUsers }: any) => {
     return (
         <>
             <Head>
-                <title>Twett / Twitter Next.js</title>
+                <title>Tweet / Twitter Next.js</title>
                 <meta name="description" content="BilliNovik / twitter-next.js" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
@@ -42,13 +42,9 @@ const PostPage = ({ dataArticles, dataUsers }: any) => {
                         <div className="hoverEffect" onClick={() => router.push("/")}>
                             <ArrowLeftIcon className="h-5 " />
                         </div>
-                        <h2 className='text-lg sm:text-xl font-bold cursor-pointer ml-2'>Twett</h2>
-                        {/* <div className="hoverEffect flex justify-center items-center w-[40px] h-[40px] px-0"> */}
-                        {/* <SparklesIcon className='h-5' /> */}
-                        {/* </div> */}
+                        <h2 className='text-lg sm:text-xl font-bold cursor-pointer ml-2'>Tweet</h2>
                     </div>
                     {post && <Post post={post} />}
-                    {/* <Input /> */}
                     {/* {
                             posts?.map(post => (
                                 <motion.div key={post.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 1 }} >
@@ -58,7 +54,7 @@ const PostPage = ({ dataArticles, dataUsers }: any) => {
                         } */}
                 </div>
 
-                {/* <Widgets articles={dataArticles.articles} users={dataUsers.results} /> */}
+                <Widgets articles={dataArticles.articles} users={dataUsers} />
 
                 <DeleteModal />
                 <CommentModal />
@@ -69,12 +65,12 @@ const PostPage = ({ dataArticles, dataUsers }: any) => {
 
 export async function getServerSideProps() {
     const dataArticles: any = await axios.get(`https://newsapi.org/v2/everything?q=zcash&pageSize=20&apiKey=${process.env.REACT_APP_NEWS_API_KEY}`)
-    // const dataUsers: any = await axios.get("https://randomuser.me/api/?results=30&inc=name,login,picture")
+    const dataUsers: any = await axios.get("https://62d937e65d893b27b2e0cf08.mockapi.io/lucci-pizza/users")
 
     return {
         props: {
             dataArticles: dataArticles.data,
-            // dataUsers: dataUsers.data
+            dataUsers: dataUsers.data
         }
     }
 }
