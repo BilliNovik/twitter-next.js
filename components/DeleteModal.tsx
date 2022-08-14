@@ -3,6 +3,7 @@ import { useRecoilState } from 'recoil';
 import { deleteDoc, doc } from 'firebase/firestore';
 import { db, storage } from '../firebase';
 import { deleteObject, ref } from 'firebase/storage';
+import { useRouter } from 'next/router';
 
 import Modal from './Modal'
 import { modalDeleteState, globalIDState, globalPostState } from '../atom/modalAtom'
@@ -14,8 +15,11 @@ const DeleteModal = (props: Props) => {
     const [getId] = useRecoilState(globalIDState)
     const [getPost] = useRecoilState(globalPostState)
 
+    const router = useRouter()
+
     const deletePost = async () => {
         onCloseModal()
+        router.push('/')
         await deleteDoc(doc(db, `posts`, getId))
 
         if (getPost.image) {

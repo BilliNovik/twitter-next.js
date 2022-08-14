@@ -16,17 +16,17 @@ const CommentModal = (props: Props) => {
     const [getId] = useRecoilState(globalIDState)
     const [getPost] = useRecoilState(globalPostState)
 
-    const [posts, setPosts] = React.useState(null)
+    // const [posts, setPosts] = React.useState(null)
     const [inputValue, setInputValue]: any = React.useState('')
 
     const { data: session } = useSession()
     const router = useRouter()
 
-    React.useEffect(() => {
-        onSnapshot(doc(db, "posts", getId,), (doc) => {
-            setPosts(doc.docs)
-        });
-    }, [getId, db])
+    // React.useEffect(() => {
+    //     onSnapshot(doc(db, "posts", getId), (doc) => {
+    //         setPosts(doc)
+    //     });
+    // }, [getId, db])
 
     const sendComment = async () => {
         await addDoc(collection(db, 'posts', getId, 'comments'), {
