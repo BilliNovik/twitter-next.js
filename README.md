@@ -5,7 +5,7 @@ I wanted to do this project on **TS**, but I realized it would take a very long 
 
 ## Technologies
 
-- [React](https://reactjs.org/docs/create-a-new-react-app.html) for the frontend
+- [Next.js](https://nextjs.org/) for the frontend
 - [Recoil](https://recoiljs.org/) for frontend application state
 - [Tailwind CSS](https://tailwindcss.com/) for UI
 - [Firebase](https://firebase.google.com/) for the database
