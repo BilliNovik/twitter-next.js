@@ -35,7 +35,7 @@ const Sidebar = () => {
                 session ? <button className='bg-blue-400 mb-2 text-white rounded-full w-full h-12 font-bold shadow-md
                     hover:brightness-95 text-lg hidden xl:inline'>Tweet</button>
                     : <button className='bg-blue-400 mb-2 text-white rounded-full w-full h-12 font-bold shadow-md 
-                    hover:brightness-95 text-lg hidden xl:inline' onClick={(event: React.MouseEvent) => signIn}>Sign in</button>
+                    hover:brightness-95 text-lg hidden xl:inline' onClick={(event: React.MouseEvent) => signIn()}>Sign in</button>
             }
             {session &&
                 <div className='p-1 hoverEffect text-gray-700 flex items-center justify-start xl:justify-start mt-auto w-full'>
