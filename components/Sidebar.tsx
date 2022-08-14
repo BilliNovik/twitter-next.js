@@ -3,22 +3,20 @@ import React from 'react'
 import { useSession, signIn } from "next-auth/react"
 import { BellIcon, HomeIcon, InboxIcon } from '@heroicons/react/solid'
 import { DotsCircleHorizontalIcon, DotsHorizontalIcon, HashtagIcon, UserIcon } from '@heroicons/react/outline'
+import { useRouter } from 'next/router'
 
 import SidebarMenuItem from './SidebarMenuItem'
 import logo from '../public/img/twitter-logo.png'
 
-type Props = {
-
-}
-
 const Sidebar = (props: Props) => {
 
     const { data: session }: any = useSession()
+    const router = useRouter()
 
     return (
         <div className='sm-flex flex flex-col p-2 xl:items-start h-full fixed max-w-[250px]'>
             <div className='hoverEffect flex items-center justify-center hover:bg-blue-100 xl:justify-start '>
-                <Image src={logo} width="25" height="25" />
+                <Image src={logo} onClick={() => router.push('/')} width="25" height="25" />
             </div>
             <div className='pt-4 pb-2 mb-2.5'>
                 <SidebarMenuItem text="Home" icon={HomeIcon} active />

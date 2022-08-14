@@ -6,6 +6,7 @@ import { collection, deleteDoc, doc, onSnapshot, setDoc } from 'firebase/firesto
 import { db, storage } from '../firebase';
 import { signIn, useSession } from 'next-auth/react';
 import { useRecoilState } from 'recoil';
+import { useRouter } from 'next/router';
 
 import { IPost } from '../global/types'
 import { deleteObject, ref } from 'firebase/storage';
@@ -20,6 +21,7 @@ const Post = ({ post }: Props) => {
     const { data: session } = useSession()
     const getPost = post.data()
     const getId = post.id
+    const router = useRouter()
 
     const [likes, setLikes] = React.useState([])
     const [comments, setComments] = React.useState([])
@@ -74,7 +76,7 @@ const Post = ({ post }: Props) => {
         <>
             {
                 getPost &&
-                <div className="flex p-3 cursor-pointer border-b border-gray-200">
+                <div className="flex p-3 border-b border-gray-200">
                     <img className="h-11 w-11 rounded-full mr-4" src={getPost.userImg} alt="user-img" />
                     <div className="w-full">
                         <div className="flex items-center justify-between">
@@ -89,10 +91,10 @@ const Post = ({ post }: Props) => {
                             </div>
                             <DotsHorizontalIcon className="h-10 hoverEffect w-10 hover:bg-sky-100 hover:text-sky-500 p-2" />
                         </div>
-                        <p className="text-gray-800 text-[15px] sm:text-[16px] mb-2">
+                        <p className="text-gray-800 cursor-pointer text-[15px] sm:text-[16px] mb-2" onClick={() => router.push(`/posts/${getId}`)}>
                             {getPost.text}
                         </p>
-                        <img className="rounded-2xl mr-2" src={getPost.image} alt="" />
+                        <img className="rounded-2xl mr-2 cursor-pointer" onClick={() => router.push(`/posts/${getId}`)} src={getPost.image} alt="" />
                         <div className="flex justify-between text-gray-500 p-2">
                             <div className='flex items-center'>
                                 <ChatIcon className="h-9 w-9 hoverEffect p-2 hover:text-sky-500 hover:bg-sky-100" onClick={commentPost} />

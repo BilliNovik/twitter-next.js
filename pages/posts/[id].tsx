@@ -2,8 +2,9 @@ import axios from 'axios';
 import Head from 'next/head'
 import { ArrowLeftIcon } from '@heroicons/react/outline';
 import { useRouter } from 'next/router';
-import { doc, onSnapshot } from 'firebase/firestore';
+import { collection, doc, onSnapshot, orderBy, query } from 'firebase/firestore';
 import React from 'react';
+import { AnimatePresence, motion } from "framer-motion";
 
 import Feed from '../components/Feed'
 import Sidebar from '../../components/Sidebar'
@@ -12,6 +13,7 @@ import DeleteModal from '../../components/DeleteModal'
 import CommentModal from '../../components/CommentModal';
 import { db } from '../../firebase';
 import Post from '../../components/Post';
+import Comment from '../../components/Comment';
 
 const PostPage = ({ dataArticles, dataUsers }: any) => {
 
@@ -19,11 +21,16 @@ const PostPage = ({ dataArticles, dataUsers }: any) => {
     const { id } = router.query
 
     const [post, setPost] = React.useState(null)
+    const [comments, setComments] = React.useState([])
 
     React.useEffect(() => {
         onSnapshot(doc(db, 'posts', id), (doc) => {
             setPost(doc)
         });
+
+        onSnapshot(query(collection(db, 'posts', id, 'comments'), orderBy('date', 'desc')), (doc) => {
+            setComments(doc.docs)
+        })
     }, [db])
 
     return (
@@ -45,13 +52,15 @@ const PostPage = ({ dataArticles, dataUsers }: any) => {
                         <h2 className='text-lg sm:text-xl font-bold cursor-pointer ml-2'>Tweet</h2>
                     </div>
                     {post && <Post post={post} />}
-                    {/* {
-                            posts?.map(post => (
-                                <motion.div key={post.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 1 }} >
-                                    <Post key={post.id} post={post} />
+                    <AnimatePresence>
+                        {
+                            comments?.map(comment => (
+                                <motion.div key={comment.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 1 }} >
+                                    <Comment key={comment.id} originalPostId={id} comment={comment} />
                                 </motion.div>
                             ))
-                        } */}
+                        }
+                    </AnimatePresence>
                 </div>
 
                 <Widgets articles={dataArticles.articles} users={dataUsers} />
