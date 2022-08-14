@@ -6,7 +6,7 @@ type Props = {}
 const News = ({ article }: any) => {
 
     return (
-        <a href={article.url} target="_blank">
+        <a href={article.url} target="_blank" rel="noreferrer">
             <div className="flex items-center justify-between px-4 py-2 space-x-1 hover:bg-gray-200 transition duration-200">
                 <div className="space-y-0.5">
                     <p className="text-xs font-light text-gray-500">{getCurrentDate(article.publishedAt)}</p>

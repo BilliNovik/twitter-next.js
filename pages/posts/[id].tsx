@@ -31,7 +31,7 @@ const PostPage = ({ dataArticles, dataUsers }: any) => {
         onSnapshot(query(collection(db, 'posts', id, 'comments'), orderBy('date', 'desc')), (doc) => {
             setComments(doc.docs)
         })
-    }, [db])
+    }, [db, id])
 
     return (
         <>

@@ -19,7 +19,7 @@ const Widgets = ({ articles, users }: any) => {
                 </div>
             </div>
             <div className="w-[100%] text-gray-700 space-y-3 bg-gray-100 rounded-xl pt-2 overflow-hidden">
-                <h4 className="font-bold text-xl px-4 pb-2">What's happening</h4>
+                <h4 className="font-bold text-xl px-4 pb-2">What&#39;s happening</h4>
                 <AnimatePresence>
                     {
                         articles.slice(0, aricleNumber).map((article: any) => (

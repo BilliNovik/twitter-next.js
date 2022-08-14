@@ -78,7 +78,7 @@ const Input = (props: Props) => {
                         {selectedFile && (
                             <div className='pt-2 pb-1'>
                                 <XIcon onClick={cleanImage} className="h-6 p-1 m-2 bg-gray-400 text-blue-100 absolute cursor-pointer rounded-full" />
-                                <img src={selectedFile} className={`${loading && "animate-pulse"}`} />
+                                <img src={selectedFile} className={`${loading && "animate-pulse"}`} alt='choosen image' />
                             </div>
                         )}
                         <div className="flex items-center justify-between pt-2.5">

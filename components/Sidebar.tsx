@@ -16,7 +16,7 @@ const Sidebar = (props: Props) => {
     return (
         <div className='sm-flex flex flex-col p-2 xl:items-start h-full fixed max-w-[250px]'>
             <div className='hoverEffect flex items-center justify-center hover:bg-blue-100 xl:justify-start '>
-                <Image src={logo} onClick={() => router.push('/')} width="25" height="25" />
+                <Image src={logo} onClick={() => router.push('/')} width="25" height="25" alt='logo' />
             </div>
             <div className='pt-4 pb-2 mb-2.5'>
                 <SidebarMenuItem text="Home" icon={HomeIcon} active />
@@ -39,7 +39,7 @@ const Sidebar = (props: Props) => {
             }
             {session &&
                 <div className='p-1 hoverEffect text-gray-700 flex items-center justify-start xl:justify-start mt-auto w-full'>
-                    <Image src={session.user.image} width='50' height='50' className='rounded-full' />
+                    <Image src={session.user.image} width='50' height='50' className='rounded-full' alt='user image' />
                     <div className='leading-5 hidden xl:inline xl:ml-2'>
                         <h4 className='font-bold text-[13px]'>{session.user.name.slice(0, 17)}...</h4>
                         <span className='text-gray-500 text-[13px]'>@{session.user.username.slice(0, 14)}...</span>
