@@ -2,7 +2,7 @@ import React from 'react'
 import { ChartBarIcon, ChatIcon, DotsHorizontalIcon, HeartIcon, ShareIcon, TrashIcon } from '@heroicons/react/outline'
 import { HeartIcon as HeartIconSolid } from '@heroicons/react/solid'
 import dateFormat from 'dateformat'
-import { useSession } from 'next-auth/react'
+import { signIn, useSession } from 'next-auth/react'
 import { collection, deleteDoc, doc, onSnapshot, setDoc } from 'firebase/firestore'
 import { useRecoilState } from 'recoil'
 
@@ -10,22 +10,22 @@ import { db } from '../firebase'
 import { globalIDState, globalPostState, modalDeleteState } from '../atom/modalAtom'
 
 
-const Comment = ({ originalPostId, comment }) => {
+const Comment = ({ originalPostId, comment }: any) => {
 
-    const { data: session } = useSession()
+    const { data: session }: any = useSession()
     const getComment = comment.data()
 
-    const [likes, setLikes] = React.useState([])
+    const [likes, setLikes] = React.useState<any>([])
     const [hasLiked, setHasLiked] = React.useState(false)
 
     React.useEffect(() => {
-        onSnapshot(collection(db, 'posts', originalPostId, 'comments', comment.id, 'likes'), (doc) => {
+        onSnapshot(collection(db, 'posts', originalPostId, 'comments', comment.id, 'likes'), (doc): any => {
             setLikes(doc.docs)
         })
     }, [db])
 
     React.useEffect(() => {
-        setHasLiked(likes.findIndex(like => like.id === session?.user.uid) !== -1)
+        setHasLiked(likes.findIndex((like: any) => like.id === session?.user.uid) !== -1)
     }, [likes])
 
     const likeComment = async () => {

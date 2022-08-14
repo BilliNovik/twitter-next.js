@@ -10,23 +10,16 @@ import { db } from '../firebase'
 import { globalIDState, globalPostState, modalCommentState } from '../atom/modalAtom'
 import Modal from './Modal'
 
-const CommentModal = (props: Props) => {
+const CommentModal = () => {
 
     const [isOpenModal, setIsOpenModal] = useRecoilState(modalCommentState)
     const [getId] = useRecoilState(globalIDState)
-    const [getPost] = useRecoilState(globalPostState)
+    const [getPost] = useRecoilState<any>(globalPostState)
 
-    // const [posts, setPosts] = React.useState(null)
     const [inputValue, setInputValue]: any = React.useState('')
 
-    const { data: session } = useSession()
+    const { data: session }: any = useSession()
     const router = useRouter()
-
-    // React.useEffect(() => {
-    //     onSnapshot(doc(db, "posts", getId), (doc) => {
-    //         setPosts(doc)
-    //     });
-    // }, [getId, db])
 
     const sendComment = async () => {
         await addDoc(collection(db, 'posts', getId, 'comments'), {

@@ -1,6 +1,5 @@
 import { SparklesIcon } from '@heroicons/react/outline'
 import React from 'react'
-import { IPost } from '../global/types'
 import { collection, onSnapshot, orderBy, query } from 'firebase/firestore'
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -12,7 +11,7 @@ type Props = {}
 
 const Feed = (props: Props) => {
 
-  const [posts, setPosts] = React.useState()
+  const [posts, setPosts] = React.useState<any>()
 
   React.useEffect(() => {
     onSnapshot(query(collection(db, "posts"), orderBy('date', 'desc')), (doc) => {
@@ -32,7 +31,7 @@ const Feed = (props: Props) => {
       <Input />
       <AnimatePresence>
         {
-          posts?.map(post => (
+          posts?.map((post: any) => (
             <motion.div key={post.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 1 }} >
               <Post key={post.id} post={post} />
             </motion.div>

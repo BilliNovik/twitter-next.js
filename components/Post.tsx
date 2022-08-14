@@ -8,17 +8,16 @@ import { signIn, useSession } from 'next-auth/react';
 import { useRecoilState } from 'recoil';
 import { useRouter } from 'next/router';
 
-import { IPost } from '../global/types'
 import { deleteObject, ref } from 'firebase/storage';
 import { modalDeleteState, globalIDState, globalPostState, modalCommentState } from '../atom/modalAtom'
 
 type Props = {
-    post: IPost,
+    post: any,
 }
 
 const Post = ({ post }: Props) => {
 
-    const { data: session } = useSession()
+    const { data: session }: any = useSession()
     const getPost = post.data()
     const getId = post.id
     const router = useRouter()
@@ -33,17 +32,17 @@ const Post = ({ post }: Props) => {
     const [openCommentModal, setOpenCommentModal] = useRecoilState(modalCommentState)
 
     React.useEffect(() => {
-        onSnapshot(collection(db, 'posts', getId, 'likes'), (doc) => {
+        onSnapshot(collection(db, 'posts', getId, 'likes'), (doc: any) => {
             setLikes(doc.docs)
         })
 
-        onSnapshot(collection(db, 'posts', getId, 'comments'), (doc) => {
+        onSnapshot(collection(db, 'posts', getId, 'comments'), (doc: any) => {
             setComments(doc.docs)
         })
     }, [db])
 
     React.useEffect(() => {
-        setHasLiked(likes.findIndex(like => like.id === session?.user.uid) !== -1)
+        setHasLiked(likes.findIndex((like: any) => like.id === session?.user.uid) !== -1)
     }, [likes])
 
     const likePost = async () => {

@@ -13,7 +13,7 @@ type Props = {}
 const DeleteModal = (props: Props) => {
     const [isOpenModal, setIsOpenModal] = useRecoilState(modalDeleteState)
     const [getId] = useRecoilState(globalIDState)
-    const [getPost] = useRecoilState(globalPostState)
+    const [getPost]: any = useRecoilState(globalPostState)
 
     const router = useRouter()
 

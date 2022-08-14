@@ -7,8 +7,8 @@ const ModalReact = ({ children, isOpenModal, maxWidthParam, onCloseModal }) => {
 
     const afterOpenModal = () => {
         document.body.style.overflow = 'hidden'
-        document.querySelector('.ReactModal__Overlay').style.background = 'rgba(0, 0, 0, 0.4)'
-        document.querySelector('.ReactModal__Overlay').style.zIndex = '999'
+        document.querySelector<HTMLInputElement>('.ReactModal__Overlay').style.background = 'rgba(0, 0, 0, 0.4)'
+        document.querySelector<HTMLInputElement>('.ReactModal__Overlay').style.zIndex = '999'
     }
 
     return (

@@ -6,29 +6,29 @@ import { collection, doc, onSnapshot, orderBy, query } from 'firebase/firestore'
 import React from 'react';
 import { AnimatePresence, motion } from "framer-motion";
 
-import Feed from '../components/Feed'
 import Sidebar from '../../components/Sidebar'
 import Widgets from "../../components/Widgets"
 import DeleteModal from '../../components/DeleteModal'
 import CommentModal from '../../components/CommentModal';
-import { db } from '../../firebase';
 import Post from '../../components/Post';
 import Comment from '../../components/Comment';
+import { db } from '../../firebase';
 
 const PostPage = ({ dataArticles, dataUsers }: any) => {
 
     const router = useRouter()
-    const { id } = router.query
+    const { id }: any = router.query
 
     const [post, setPost] = React.useState(null)
     const [comments, setComments] = React.useState([])
 
+
     React.useEffect(() => {
-        onSnapshot(doc(db, 'posts', id), (doc) => {
+        onSnapshot(doc<any>(db, 'posts', id), (doc: any) => {
             setPost(doc)
         });
 
-        onSnapshot(query(collection(db, 'posts', id, 'comments'), orderBy('date', 'desc')), (doc) => {
+        onSnapshot(query(collection(db, 'posts', id, 'comments'), orderBy('date', 'desc')), (doc: any) => {
             setComments(doc.docs)
         })
     }, [db, id])
@@ -54,7 +54,7 @@ const PostPage = ({ dataArticles, dataUsers }: any) => {
                     {post && <Post post={post} />}
                     <AnimatePresence>
                         {
-                            comments?.map(comment => (
+                            comments?.map((comment: any) => (
                                 <motion.div key={comment.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 1 }} >
                                     <Comment key={comment.id} originalPostId={id} comment={comment} />
                                 </motion.div>

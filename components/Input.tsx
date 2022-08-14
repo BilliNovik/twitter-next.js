@@ -45,13 +45,13 @@ const Input = (props: Props) => {
         setLoading(false)
     }
 
-    const addImageToPost = (e) => {
+    const addImageToPost = (e: any) => {
         const reader = new FileReader();
         if (e.target.files[0]) {
             reader.readAsDataURL(e.target.files[0]);
         }
 
-        reader.onload = (readerEvent) => {
+        reader.onload = (readerEvent: any) => {
             setSelectedFile(readerEvent.target.result)
         }
     }
@@ -68,7 +68,7 @@ const Input = (props: Props) => {
                     <div>
                         <Image src={session.user.image}
                             width='50' height='50' className='rounded-full cursor-pointer hover:brightness-95' alt='user-img'
-                            onClick={signOut} />
+                            onClick={(event: React.MouseEvent) => signOut} />
                     </div>
                     <div className="w-full divide-y divide-gray-200">
                         <div className="">
